@@ -11,10 +11,10 @@ class buttons():
 		
 		# Set buttons
 		self.buttons = button_pins
+
+		# Initialize display client
+		self.display = False
 	
-		# Set GPIO numbering mode
-		GPIO.setmode(GPIO.BOARD)
-		
 		# We don't need warnings from GPIO
 		GPIO.setwarnings(False)
 		
@@ -30,6 +30,10 @@ class buttons():
 	# Register MPD client to send it commands
 	def register(self, mpd):
 		self.mpd = mpd
+
+	# Register display client so this thread can send commands to it
+	def register_display(self, display):
+		self.display = display
 			
 	def button_pressed(self, channel):
 		# Debouncing
@@ -37,7 +41,15 @@ class buttons():
 		if (GPIO.input(channel) == 0):
 			# Find out which button was pressed
 			for button in self.buttons:
-				if (channel == self.buttons[button]):					
+				if (channel == self.buttons[button]):
+					# Change screen
+					if (button == 'MODE_BUTTON'):
+						if (self.display != False):
+							self.display.change_screen()
+					# Toggle backlight
+					elif (button == 'PAUSE_BUTTON'):
+                        if (self.display != False):
+							self.display.toggle_backlight()
 					# Send command to MPD client
-					if (self.mpd != False):
+					elif (self.mpd != False):
 						self.mpd.commands(button.replace('_BUTTON', ''))

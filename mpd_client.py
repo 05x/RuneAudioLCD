@@ -261,6 +261,7 @@ class mpd_client:
 			if (self.data['type'] == 0):
 				try:
 					self.data['total_time'] = int(self.client.currentsong()['time'])
+					print('MPD totalTime: ' + str(int(self.client.currentsong()['time'])))
 				except KeyError:
 					self.data['total_time'] = 0
 					
@@ -270,7 +271,7 @@ class mpd_client:
 			
 			# Get elapsed time and convert it to seconds (int)
 			try:
-				self.data['elapsed_time'] = int(math.floor(float(self.client.status()['elapsed'])))
+				self.data['elapsed_time'] = int(float(self.client.status()['elapsed']))
 			except KeyError:
 				self.data['elapsed_time'] = 0
 				
