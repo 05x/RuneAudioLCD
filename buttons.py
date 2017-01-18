@@ -48,7 +48,7 @@ class buttons():
 							self.display.change_screen()
 					# Toggle backlight
 					elif (button == 'PAUSE_BUTTON'):
-                        if (self.display != False):
+						if (self.display != False):
 							self.display.toggle_backlight()
 					# Send command to MPD client
 					elif (self.mpd != False):
