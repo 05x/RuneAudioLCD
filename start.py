@@ -38,19 +38,19 @@ LCD_ENABLE = True
 
 # This program supports I2C and parallel connection for display
 # Choose between I2C and parallel: 0 - for I2C, 1 - for parallel
-DISPLAY_TYPE = 1
+DISPLAY_TYPE = 0
 
 # Pins for parallel display connection
 LCD_RS = 37
 LCD_EN = 33
 LCD_D4 = 29
 LCD_D5 = 31
-LCD_D6 = 13
-LCD_D7 = 15
+LCD_D6 = 32
+LCD_D7 = 38
 LCD_BL = 36
 
 # Specify I2C display address (usually 0x27)
-I2C_DISPLAY_ADDRESS = 0X27
+I2C_DISPLAY_ADDRESS = 0X38
 
 # This program generates LCD output dynamically
 # Which means that it support both 20x4 and 16x2 LCDs
@@ -91,14 +91,14 @@ BUTTONS_ENABLE = True
 # Change the pin number, to specify where you connected them
 # If you don't want to use one of the buttons, put False as values
 # For example, PLAY_BUTTON = False
-PLAY_BUTTON = 22
-NEXT_BUTTON = 24
-PREV_BUTTON = 26
-VDN_BUTTON = 8
-VUP_BUTTON = 16
-STOP_BUTTON = 32
-MODE_BUTTON = 10
-PAUSE_BUTTON = 18
+PLAY_BUTTON = 11
+NEXT_BUTTON = 13
+PREV_BUTTON = 15
+VDN_BUTTON = False
+VUP_BUTTON = False
+STOP_BUTTON = 16
+MODE_BUTTON = 18
+PAUSE_BUTTON = 7
 
 # Specify time to ignore button after press (in miliseconds)
 BOUNCE_TIME = 200
