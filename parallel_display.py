@@ -3,7 +3,7 @@
 '''
 Written by Luka Žgur
 
-ParallelDisplay uses adafruit char LCD library for communication with display.
+parallel_display uses adafruit char LCD library for communication with display.
 https://github.com/adafruit/Adafruit_Python_CharLCD
 '''
 
@@ -14,10 +14,6 @@ import RPi.GPIO as GPIO
 import Adafruit_CharLCD as LCD
 from time import *
 
-''' COMMANDS FOR LCD DISPLAY '''
-# GPIO numbering mode
-GPIO_NUMBERING_MODE = GPIO.BCM
-
 # pins indexes
 LCD_RS_INDEX = 0
 LCD_EN_INDEX = 1
@@ -27,13 +23,12 @@ LCD_D6_INDEX = 4
 LCD_D7_INDEX = 5
 LCD_BL_INDEX = 6
 
-class ParallelDisplay(display.Display):
+class parallel_display(display.display):
     
     # Method for LCD initialization
     ''' OVERRIDED FROM DISPLAY '''
     def lcd_initialize(self):
         # Initialize parallel_Device
-        GPIO.setmode(GPIO_NUMBERING_MODE)
         GPIO.setwarnings(False)
         #self.lcd_bl_pin = self.pins[LCD_BL_INDEX]
         

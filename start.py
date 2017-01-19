@@ -6,7 +6,7 @@
 # Schematic, details and tutorial: /                     #
 ##########################################################
 
-import parallel_display
+import RPi.GPIO as GPIO
 import mpd_client, ir_remote, time, buttons
 
 #########  MPD PARAMETERS  ##############
@@ -17,12 +17,21 @@ PASSWORD = False
 CON_ID = {'host':HOST, 'port':PORT}
 #########################################
 
+
+############## GPIO numbering mode ######################################################
+# Here you can specify the pin numbering mode for lcd and buttons                       #
+# There is two pin numbering mode avalaible:                                            #
+#  - GPIO.BOARD : Pin number is the same as pin number on board                         #
+#  - GPIO.BCM   : BCM pin numbering (take a look on http://pinout.xyz/ for reference)   #
+
+GPIO_NUMBERING_MODE = GPIO.BOARD
+
+#########################################################################################
+
 ################### LCD DISPLAY  ########################################################
 # Here you can specify your LCD settings and pins   									#
 # Where your LCD is connected              	        									#
 # Or connect it to these default pins  													#
-# GPIO.BCM numbering mode is used				   										#
-# You can find BCM pinout on Google				  										#
 
 # If you want to use LCD display, put to True, otherwise put to False
 LCD_ENABLE = True
@@ -32,13 +41,13 @@ LCD_ENABLE = True
 DISPLAY_TYPE = 1
 
 # Pins for parallel display connection
-LCD_RS = 26
-LCD_EN = 13
-LCD_D4 = 5
-LCD_D5 = 6
-LCD_D6 = 27
-LCD_D7 = 22
-LCD_BL = 16
+LCD_RS = 37
+LCD_EN = 33
+LCD_D4 = 29
+LCD_D5 = 31
+LCD_D6 = 13
+LCD_D7 = 15
+LCD_BL = 36
 
 # Specify I2C display address (usually 0x27)
 I2C_DISPLAY_ADDRESS = 0X27
@@ -74,8 +83,6 @@ BACKLIGHT_TIMEOUT = 5
 # Here you can specify your button pins        											#
 # Where your buttons are connected              										#
 # Or connect them using these default pins      										#
-# GPIO.BOARD numbering mode is used			  											#
-# Pin number is the same as pin number on board   										#
 # BUTTONS ARE PULLED UP, so connect buttons to GROUND 									#
 
 # If you want to use buttons, put to True, otherwise put to False
@@ -84,14 +91,14 @@ BUTTONS_ENABLE = True
 # Change the pin number, to specify where you connected them
 # If you don't want to use one of the buttons, put False as values
 # For example, PLAY_BUTTON = False
-PLAY_BUTTON = 25
-NEXT_BUTTON = 8
-PREV_BUTTON = 7
-VDN_BUTTON = 14
-VUP_BUTTON = 23
-STOP_BUTTON = 12
-MODE_BUTTON = 15
-PAUSE_BUTTON = 24
+PLAY_BUTTON = 22
+NEXT_BUTTON = 24
+PREV_BUTTON = 26
+VDN_BUTTON = 8
+VUP_BUTTON = 16
+STOP_BUTTON = 32
+MODE_BUTTON = 10
+PAUSE_BUTTON = 18
 
 # Specify time to ignore button after press (in miliseconds)
 BOUNCE_TIME = 200
@@ -124,29 +131,34 @@ mpdcl = mpd_client.mpd_client(CON_ID, PASSWORD)
 # Start it
 mpdcl.start()
 
-# If enabled, nitialize display instance
+# Set GPIO numbering mode
+GPIO.setmode(GPIO_NUMBERING_MODE)
+
+# If enabled, initialize display instance
 if LCD_ENABLE:
 	# I2C display is chosen
-    if (DISPLAY_TYPE == 0):
-        display = i2c_display.i2c_display(I2C_DISPLAY_ADDRESS, LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, None)
-    elif(DISPLAY_TYPE == 1):
-        lcd_pins = [
-            LCD_RS,
-            LCD_EN,
-            LCD_D4,
-            LCD_D5,
-            LCD_D6,
-            LCD_D7,
-            LCD_BL
-        ]
-        display = parallel_display.ParallelDisplay(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
+	if (DISPLAY_TYPE == 0):
+		import i2c_display
+		display = i2c_display.i2c_display(I2C_DISPLAY_ADDRESS, LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, None)
+	elif(DISPLAY_TYPE == 1):
+		lcd_pins = [
+			LCD_RS,
+			LCD_EN,
+			LCD_D4,
+			LCD_D5,
+			LCD_D6,
+			LCD_D7,
+			LCD_BL
+		]
+		import parallel_display
+		display = parallel_display.parallel_display(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
 
-    # Let MPD and display know for each other
-    display.register(mpdcl)
-    mpdcl.register(display)
+	# Let MPD and display know for each other
+	display.register(mpdcl)
+	mpdcl.register(display)
 
-    # Start display thread
-    display.start()
+	# Start display thread
+	display.start()
 
 # If remote is enabled, initialize it and start it's thread
 if REMOTE_ENABLE:
