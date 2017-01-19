@@ -14,10 +14,6 @@ import RPi.GPIO as GPIO
 import Adafruit_CharLCD as LCD
 from time import *
 
-''' COMMANDS FOR LCD DISPLAY '''
-# GPIO numbering mode
-GPIO_NUMBERING_MODE = GPIO.BCM
-
 # pins indexes
 LCD_RS_INDEX = 0
 LCD_EN_INDEX = 1
@@ -33,7 +29,6 @@ class parallel_display(display.display):
     ''' OVERRIDED FROM DISPLAY '''
     def lcd_initialize(self):
         # Initialize parallel_Device
-        GPIO.setmode(GPIO_NUMBERING_MODE)
         GPIO.setwarnings(False)
         #self.lcd_bl_pin = self.pins[LCD_BL_INDEX]
         
