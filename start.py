@@ -6,7 +6,6 @@
 # Schematic, details and tutorial: /                     #
 ##########################################################
 
-import parallel_display
 import mpd_client, ir_remote, time, buttons
 
 #########  MPD PARAMETERS  ##############
@@ -128,6 +127,7 @@ mpdcl.start()
 if LCD_ENABLE:
 	# I2C display is chosen
 	if (DISPLAY_TYPE == 0):
+		import i2c_display
 		display = i2c_display.i2c_display(I2C_DISPLAY_ADDRESS, LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, None)
 	elif(DISPLAY_TYPE == 1):
 		lcd_pins = [
@@ -139,6 +139,7 @@ if LCD_ENABLE:
 			LCD_D7,
 			LCD_BL
 		]
+		import parallel_display
 		display = parallel_display.parallel_display(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
 
 	# Let MPD and display know for each other
