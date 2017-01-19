@@ -27,7 +27,7 @@ LCD_D6_INDEX = 4
 LCD_D7_INDEX = 5
 LCD_BL_INDEX = 6
 
-class ParallelDisplay(display.Display):
+class ParallelDisplay(display.display):
     
     # Method for LCD initialization
     ''' OVERRIDED FROM DISPLAY '''

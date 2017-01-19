@@ -1,6 +1,6 @@
 import time, math, threading, abc, socket, fcntl, struct, sys, os, re
 
-class Display:
+class display:
   __metaclass__ = abc.ABCMeta
 
   # Class constructor, receives I2C address of display (usually it's 0x27, check with i2cdetect)
