@@ -2,7 +2,7 @@
 
 RuneAudioLCD is a python script used on RuneAudio player for displaying playback information on LCD screen and controlling of player via hardware buttons and IR remote.  
 
-This repository aim to merge the original repositoy (https://github.com/RandyCupic/RuneAudioLCD) with modded version of it called "RuneAudioLCDMod" (https://github.com/lukazgur/RuneAudioLCDMod)
+This repository aim to merge the original repositoy (https://github.com/RandyCupic/RuneAudioLCD) with a modded version of it called "RuneAudioLCDMod" (https://github.com/lukazgur/RuneAudioLCDMod)
 
 ## Modifications done by lukazgur on "RuneAudioLCDMod"
 - code migrated to Python 3,
