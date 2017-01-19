@@ -117,7 +117,7 @@ class display:
 		# To go to the new line, it uses "\n" character
 		return
 	
-	''' ABSTRACT METHOD, YOU HAVE TO IMPLEMENT IT IN INHERITED CLASS '''  
+	''' ABSTRACT METHOD, YOU HAVE TO IMPLEMENT IT IN INHERITED CLASS '''
 	@abc.abstractmethod
 	def lcd_load_custom_chars(self, data): 
 		# This method loads custom characters in LCD display
@@ -206,9 +206,9 @@ class display:
 		return temp
 		
 	# Function for showing volume screen
-	def show_volume(self):    
+	def show_volume(self):
 		# Speaker icon custom characters
-		speaker_icon = [ 
+		speaker_icon = [
 				[ 0b00000, 0b00000, 0b00000, 0b00000, 0b11111, 0b10001, 0b10001, 0b10001 ],
 				[ 0b00001, 0b00011, 0b00101, 0b01001, 0b10001, 0b00001, 0b00001, 0b00001 ],
 				[ 0b10001, 0b10001, 0b10001, 0b11111, 0b00000, 0b00000, 0b00000, 0b00000 ],
@@ -244,7 +244,7 @@ class display:
 			for i in range(self.columns - 3): # -3 for icon (2) and space
 				self.display_data[skip_lines + 1] += ' '
 		
-		# If volume is 100, show maximum and all blocks in third line 
+		# If volume is 100, show maximum and all blocks in third line
 		elif (self.volume_value == 100):
 			self.display_data[skip_lines] += 'MAX'
 			for i in range(self.columns - 3):
@@ -292,25 +292,25 @@ class display:
 		self.lock_display = False
 		
 	# Function for showing shuffle (0), repeat all (1) or repeat single (2) screen
-	def show_play_mode(self):   
+	def show_play_mode(self):
 		# Shuffle icon custom characters
-		shuffle_icon = [ 
-				[ 0b00000, 0b00000, 0b00000, 0b11100, 0b00010, 0b00010, 0b00010, 0b00001 ], 
-				[ 0b00000, 0b00000, 0b00010, 0b00111, 0b01010, 0b01000, 0b01000, 0b10000 ], 
-				[ 0b00001, 0b00010, 0b00010, 0b00010, 0b11100, 0b00000, 0b00000, 0b00000 ], 
+		shuffle_icon = [
+				[ 0b00000, 0b00000, 0b00000, 0b11100, 0b00010, 0b00010, 0b00010, 0b00001 ],
+				[ 0b00000, 0b00000, 0b00010, 0b00111, 0b01010, 0b01000, 0b01000, 0b10000 ],
+				[ 0b00001, 0b00010, 0b00010, 0b00010, 0b11100, 0b00000, 0b00000, 0b00000 ],
 				[ 0b10000, 0b01000, 0b01000, 0b01010, 0b00111, 0b00010, 0b00000, 0b00000 ]
 		]
 		
-		repeat_all_icon = [ 
-				[ 0b00000, 0b00000, 0b00000, 0b00011, 0b00100, 0b01000, 0b10000, 0b10000 ], 
-				[ 0b00000, 0b00000, 0b00000, 0b11000, 0b00101, 0b00011, 0b00111, 0b00000 ], 
+		repeat_all_icon = [
+				[ 0b00000, 0b00000, 0b00000, 0b00011, 0b00100, 0b01000, 0b10000, 0b10000 ],
+				[ 0b00000, 0b00000, 0b00000, 0b11000, 0b00101, 0b00011, 0b00111, 0b00000 ],
 				[ 0b10000, 0b10000, 0b01000, 0b00100, 0b00011, 0b00000, 0b00000, 0b00000 ],
 				[ 0b00000, 0b00000, 0b00010, 0b00100, 0b11000, 0b00000, 0b00000, 0b00000 ]
 		]
 		
-		repeat_single_icon = [ 
-				[ 0b00000, 0b00000, 0b00000, 0b00011, 0b00100, 0b01000, 0b00000, 0b00000 ], 
-				[ 0b00000, 0b00000, 0b00000, 0b11000, 0b00101, 0b00011, 0b00111, 0b00000 ], 
+		repeat_single_icon = [
+				[ 0b00000, 0b00000, 0b00000, 0b00011, 0b00100, 0b01000, 0b00000, 0b00000 ],
+				[ 0b00000, 0b00000, 0b00000, 0b11000, 0b00101, 0b00011, 0b00111, 0b00000 ],
 				[ 0b00000, 0b11100, 0b11000, 0b10100, 0b00011, 0b00000, 0b00000, 0b00000 ],
 				[ 0b00000, 0b00000, 0b00010, 0b00100, 0b11000, 0b00000, 0b00000, 0b00000 ]
 		]
@@ -371,7 +371,7 @@ class display:
 		# We need to center the text so we have to calculate how much spaces depending on screen width
 		temp = self.columns - 2 - len(temp_text) # 2 (for icon) and length of "Enabled" or "Disabled"
 		
-		# Add spaces from left side     
+		# Add spaces from left side
 		for i in range(temp // 2):
 			self.display_data[skip_lines + 1] += ' '
 			
@@ -467,7 +467,7 @@ class display:
 			
 		temp = ''
 		
-	 # Create string to return
+	# Create string to return
 		if (sec < 10):
 			temp += '0' + str(sec)
 		else:
@@ -501,15 +501,15 @@ class display:
 		except IOError:
 			return ''
 			
-	# Return CPU temperature as a character string                                      
+	# Return CPU temperature as a character string
 	def getCPUtemperature(self):
 		res = os.popen('/opt/vc/bin/vcgencmd measure_temp').readline()
 		return(res.replace("temp=","").replace("'C\n",""))
 		
-	# Return RAM information (unit=kb) in a list                                        
-	# Index 0: total RAM                                                                
-	# Index 1: used RAM                                                                 
-	# Index 2: free RAM                                                                 
+	# Return RAM information (unit=kb) in a list
+	# Index 0: total RAM
+	# Index 1: used RAM
+	# Index 2: free RAM
 	def getRAMinfo(self):
 		p = os.popen('free')
 		i = 0
@@ -527,11 +527,11 @@ class display:
 		else:
 			display_format = "{0:.1f}"
 				
-		# Convert it to MB and show as xy.z   
+		# Convert it to MB and show as xy.z
 		temp = []
 		temp.append(display_format.format(int(data[0]) / 1024.0))
 		temp.append(display_format.format(int(data[1]) / 1024.0))
-		temp.append(display_format.format(int(data[2]) / 1024.0)) 
+		temp.append(display_format.format(int(data[2]) / 1024.0))
 		
 		return temp
 		
@@ -555,7 +555,7 @@ class display:
 		except KeyError:
 			date = ''
 		
-		return { 'clock': clock, 'date': date }   
+		return { 'clock': clock, 'date': date }
 			
 	# Screen 0 shows artist and song name, times and track info
 	# Returns whether the data has changed or not
@@ -591,7 +591,7 @@ class display:
 	# This screen shows time and track/station info
 	# Returns whether the data has changed or not
 	def screen_1(self):
-		data_changed = False    
+		data_changed = False
 		temp = ''
 		
 		# If display is 4x20, this will be displayed in lines 3 and 4, otherwise 1 and 2 (2x16)
@@ -603,7 +603,8 @@ class display:
 		# If file is playing
 		if (self.mpd.getData()['type'] == 0):
 			# Get elapsed time
-			elapsed_time = self.convert_time(self.mpd.getData()['elapsed_time'], 0)      
+			elapsed_time = self.convert_time(self.mpd.getData()['elapsed_time'], 0)
+			
 			# Get total track time
 			total_time = self.convert_time(self.mpd.getData()['total_time'], 0)
 			
@@ -639,7 +640,7 @@ class display:
 			temp += total_time
 			
 		# else if radio is playing
-		elif (self.mpd.getData()['type'] == 1):   
+		elif (self.mpd.getData()['type'] == 1):
 			# Get elapsed time
 			elapsed_time = self.convert_time(self.mpd.getData()['elapsed_time'], 1)
 			
@@ -923,7 +924,7 @@ class display:
 		# Check if data has changed
 		if (self.display_data[skip_lines] != temp):
 			self.display_data[skip_lines] = temp
-			data_changed = True 
+			data_changed = True
 			
 		# Get RAM usage
 		ram = self.getRAMinfo()
@@ -1075,7 +1076,7 @@ class display:
 					self.screen == 4
 			
 			# If data has changed, update display
-			if (data_changed):          
+			if (data_changed):
 				while (self.lock_display):
 					continue
 				
