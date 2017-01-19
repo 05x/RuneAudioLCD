@@ -127,26 +127,26 @@ mpdcl.start()
 # If enabled, nitialize display instance
 if LCD_ENABLE:
 	# I2C display is chosen
-    if (DISPLAY_TYPE == 0):
-        display = i2c_display.i2c_display(I2C_DISPLAY_ADDRESS, LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, None)
-    elif(DISPLAY_TYPE == 1):
-        lcd_pins = [
-            LCD_RS,
-            LCD_EN,
-            LCD_D4,
-            LCD_D5,
-            LCD_D6,
-            LCD_D7,
-            LCD_BL
-        ]
-        display = parallel_display.parallel_display(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
+	if (DISPLAY_TYPE == 0):
+		display = i2c_display.i2c_display(I2C_DISPLAY_ADDRESS, LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, None)
+	elif(DISPLAY_TYPE == 1):
+		lcd_pins = [
+			LCD_RS,
+			LCD_EN,
+			LCD_D4,
+			LCD_D5,
+			LCD_D6,
+			LCD_D7,
+			LCD_BL
+		]
+		display = parallel_display.parallel_display(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
 
-    # Let MPD and display know for each other
-    display.register(mpdcl)
-    mpdcl.register(display)
+	# Let MPD and display know for each other
+	display.register(mpdcl)
+	mpdcl.register(display)
 
-    # Start display thread
-    display.start()
+	# Start display thread
+	display.start()
 
 # If remote is enabled, initialize it and start it's thread
 if REMOTE_ENABLE:
