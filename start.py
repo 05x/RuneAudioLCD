@@ -139,7 +139,7 @@ if LCD_ENABLE:
             LCD_D7,
             LCD_BL
         ]
-        display = parallel_display.ParallelDisplay(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
+        display = parallel_display.parallel_display(I2C_DISPLAY_ADDRESS,LCD_ROWS, LCD_COLUMNS, TEMPORARY_SCREEN_PERIOD, SCROLLING_PERIOD, lcd_pins)
 
     # Let MPD and display know for each other
     display.register(mpdcl)

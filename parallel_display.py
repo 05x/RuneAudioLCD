@@ -3,7 +3,7 @@
 '''
 Written by Luka Žgur
 
-ParallelDisplay uses adafruit char LCD library for communication with display.
+parallel_display uses adafruit char LCD library for communication with display.
 https://github.com/adafruit/Adafruit_Python_CharLCD
 '''
 
@@ -27,7 +27,7 @@ LCD_D6_INDEX = 4
 LCD_D7_INDEX = 5
 LCD_BL_INDEX = 6
 
-class ParallelDisplay(display.display):
+class parallel_display(display.display):
     
     # Method for LCD initialization
     ''' OVERRIDED FROM DISPLAY '''
